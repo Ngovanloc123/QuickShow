@@ -1,0 +1,51 @@
+FE:
+    npm create vite@latest -> Tạo một project web với template sẵn (Vite)
+
+    Chức năng các package:
+    - react-router-dom
+        Thư viện để quản lý routing trong ứng dụng React (SPA).
+        Ví dụ: Route, Link, useNavigate...
+    - lucide-react
+        Bộ icon đơn giản, hiện đại, có thể dùng như React component.
+        Ví dụ: <LucideIcon name="arrow-right" />
+    - react-hot-toast
+        Hiển thị các thông báo nổi dạng toast (success, error, loading…).
+    - react-player
+        Thư viện để phát media như video, audio từ YouTube, Vimeo, file local...
+        Ví dụ: <ReactPlayer url="https://www.youtube.com/watch?v=..." />
+
+BE:
+    npm init -> khởi tạo một project Node.js cơ bản
+
+    Thêm: "type": "module" 
+    => Có thể import / export thay vì require() / module.exports
+
+    Chức năng các package:
+    - express
+        Chức năng: Tạo server HTTP nhanh và đơn giản.
+        Dùng để làm gì? Xây dựng API hoặc web server backend.
+    - nodemon
+        Giúp tự động khởi động lại server mỗi khi có thay đổi trong mã nguồn.
+    - cors
+        Chức năng: Cho phép hoặc chặn các request từ domain khác (Cross-Origin Resource Sharing).
+        Dùng để làm gì? Cho phép frontend (chạy ở localhost:3000) gọi API từ backend (localhost:5000) mà không bị lỗi CORS.
+    - dotenv
+        Chức năng: Quản lý biến môi trường từ file .env.
+        Dùng để làm gì? Bảo mật thông tin nhạy cảm như DB URI, API key, v.v.
+    - mongoose
+        Chức năng: ODM (Object Data Modeling) cho MongoDB.
+        Dùng để làm gì? Kết nối, truy vấn và làm việc với MongoDB dễ hơn bằng mô hình hóa dữ liệu.
+    - axios
+        Chức năng: Gửi HTTP request (GET, POST, PUT, DELETE...).
+        Dùng để làm gì? Gọi API từ frontend hoặc backend.
+    - cloudinary
+        Chức năng: Quản lý upload, lưu trữ và xử lý hình ảnh trên nền tảng Cloudinary.
+        Dùng để làm gì? Upload ảnh lên Cloudinary, lấy link ảnh và xử lý ảnh (resize, crop,...).
+
+
+
+
+
+
+
+
