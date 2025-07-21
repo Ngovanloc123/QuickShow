@@ -1,3 +1,4 @@
+import { inngest } from "../inngest/index.js";
 import Booking from "../models/Booking.js";
 import Show from "../models/Show.js"
 import stripe from 'stripe'
@@ -23,6 +24,8 @@ const checkSeatsAvailability = async (showId, selectedSeats) => {
 export const createBooking = async (req, res) => {
     try {
         const {userId} = req.auth();
+        console.log(userId);
+        
         const {showId, selectedSeats} = req.body;
         const {origin} = req.headers;
 
@@ -78,6 +81,14 @@ export const createBooking = async (req, res) => {
 
         booking.paymentLink = session.url // URL trang thanh toán của Stripe
         await booking.save()
+
+        // Run Inngest Scheduler Function 
+        await inngest.send({
+            name: 'app/checkpayment',
+            data: {
+                bookingId: booking._id.toString()
+            }
+        })
 
         res.json({success: true, url: session.url})
 

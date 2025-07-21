@@ -15,6 +15,7 @@ const MyBookings = () => {
 
   const [bookings, setBookings] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  
 
   const getMyBookings = async () => {
     try {

@@ -10,6 +10,7 @@ const ListBookings = () => {
   const currency = import.meta.env.VITE_CURRENCY
 
   const {axios, getToken, user} = useAppContext()
+  
 
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(true)
@@ -51,6 +52,7 @@ const ListBookings = () => {
 
           <tbody className='text-sm font-light'>
             {bookings.map((item, index) => (
+            
               <tr key={index} className='border-b border-primary/10 bg-primary/5 even:bg-primary/10'>
                 <td className='p-2 min-w-45 pl-5'>{item.user.name}</td>
                 <td className='p-2'>{item.show.movie.title}</td>
