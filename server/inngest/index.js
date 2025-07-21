@@ -25,7 +25,7 @@ const syncUserCreation = inngest.createFunction(
 // Inngest Function to delete user data to a database
 const syncUserDeletion = inngest.createFunction(
     {id: 'delete-user-with-clerk'},
-    {event: 'clerk/user.delete'},
+    {event: 'clerk/user.deleted'}, // Sửa từ 'clerk/user.delete' thành 'clerk/user.deleted'
     async ({event})=> {
         const {id} = event.data
         await User.findByIdAndDelete(id)
@@ -47,27 +47,41 @@ const syncUserUpdation = inngest.createFunction(
         await User.findByIdAndUpdate(id, userData)
     }
 )
+
 // Xóa booking và seats của show sau 10 phút không thanh toán
 const releaseSeatsAndDeleteBooking = inngest.createFunction(
     {id: 'release-seats-delete-booking'},
-    {even: "app/checkpayment"},
-    async ({ even, step }) => {
+    {event: "app/checkpayment"},
+    async ({ event, step }) => {
         const tenMinutesLater = new Date(Date.now() + 10 * 60 * 1000);
         await step.sleepUntil('wait-for-10-minutes', tenMinutesLater);
 
         await step.run('check-payment-status', async () => {
-            const bookingId = even.data.bookingId;
+            const bookingId = event.data.bookingId;
             const booking = await Booking.findById(bookingId)
+
+            // Kiểm tra nếu booking tồn tại
+            if (!booking) {
+                console.log(`Booking with ID ${bookingId} not found`);
+                return;
+            }
 
             // If payment is not made, release seats and delete booking
             if(!booking.isPaid) {
                 const show = await Show.findById(booking.show)
-                booking.bookedSeats.forEach((seat) => {
-                    delete show.occupiedSeats[seat]
-                });
-                show.markModified('occupiedSeats')
-                await show.save()
+                
+                if (show) {
+                    booking.bookedSeats.forEach((seat) => {
+                        delete show.occupiedSeats[seat]
+                    });
+                    show.markModified('occupiedSeats')
+                    await show.save()
+                }
+                
                 await Booking.findByIdAndDelete(booking._id)
+                console.log(`Booking ${bookingId} deleted due to unpaid status`);
+            } else {
+                console.log(`Booking ${bookingId} is already paid`);
             }
         })
     }
