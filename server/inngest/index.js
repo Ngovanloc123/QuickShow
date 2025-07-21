@@ -5,7 +5,10 @@ import Show from "../models/Show.js";
 import sendEmail from "../configs/nodemailer.js";
 
 // Tạo một ứng dụng khách để gửi và nhận sự kiện
-export const inngest = new Inngest({ id: "movie-ticket-booking" });
+export const inngest = new Inngest({ 
+    id: "movie-ticket-booking",
+    signingKey: process.env.INNGEST_SIGNING_KEY,
+});
 
 // Inngest Function to save user data to a database
 const syncUserCreation = inngest.createFunction(
