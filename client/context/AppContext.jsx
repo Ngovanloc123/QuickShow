@@ -46,10 +46,11 @@ export const AppProvider = ({children}) => {
                 setShows(data.shows)
             }
             else {
-                toast.error(Database.message)
+                toast.error(data.message)
             }
         } catch (error) {
-            
+            console.log(error.message);
+            toast.error(error.message)
         }
     }
 
@@ -66,6 +67,8 @@ export const AppProvider = ({children}) => {
                 toast.error(data.message)
             }
         } catch (error) {
+            console.log(error.message);
+            toast.error(error.message)
             
         }
     }

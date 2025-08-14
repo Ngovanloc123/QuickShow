@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading.jsx";
 import { useAppContext } from "../../context/AppContext.jsx";
 import toast from "react-hot-toast";
+import ISO6391 from "iso-639-1"
 
 const MovieDetails = () => {
 
@@ -65,7 +66,7 @@ const MovieDetails = () => {
 
                 <div className="relative flex flex-col gap-3">
                     <BlurCircle top="-100px" left="-100px" />
-                    <p className="text-primary">ENGLISH</p>
+                    <p className="text-primary">{ISO6391.getName(show.movie.original_language).toUpperCase()}</p>
                     <h1 className="text-4xl font-semibold max-w-96 text-balance">
                         {show.movie.title}
                     </h1>
